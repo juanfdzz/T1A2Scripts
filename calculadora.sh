@@ -19,42 +19,77 @@
 
 #!/bin/bash
 
+es_numero='^[0-9]+$'
+
 #Se definen las funciones de la 1 a la 5 para que cada una haga una operación concreta.
 
-opcion1(){ echo "Introduce dos números para realizar la función seleccionada"
+opcion1(){ 
+	  echo "Introduce dos números para realizar la función seleccionada"
 	  read numero1
 	  read numero2
-   resultado=$(($numero1 + $numero2))
-   echo "El resultado de la suma es $resultado"
+
+	  if ! [[ $numero1$numero2 =~ $es_numero ]] ; then
+   		echo "Los parámetros deben ser números enteros" 
+		echo "`date`: Ocurrió un error al ejecutar el script $0, no se le introdujo un valor correcto para realizar el cálculo" >> errores8.log
+   		exit 1
+	  else
+   		resultado=$(($numero1 + $numero2))
+   		echo "El resultado de la suma es $resultado"
+          fi
 
 }
 
-opcion2(){ echo "Introduce dos números para realizar la función seleccionada"
+opcion2(){ 
+	  echo "Introduce dos números para realizar la función seleccionada"
 	  read numero1
 	  read numero2
-   resultado=$(($numero1 - $numero2))
-   echo "El resultado de la resta es $resultado"
+
+	  if ! [[ $numero1$numero2 =~ $es_numero ]] ; then
+   		echo "Los parámetros deben ser números enteros" 
+		echo "`date`: Ocurrió un error al ejecutar el script $0, no se le introdujo un valor correcto para realizar el cálculo" >> errores8.log
+   		exit 1
+	  else
+   		resultado=$(($numero1 - $numero2))
+   		echo "El resultado de la resta es $resultado"
+	  fi
 
 }
 
-opcion3(){ echo "Introduce dos números para realizar la función seleccionada"
+opcion3(){ 
+	  echo "Introduce dos números para realizar la función seleccionada"
 	  read numero1
 	  read numero2
-   resultado=$(($numero1 * $numero2))
-   echo "El resultado de la multiplicación es $resultado"
+
+	  if ! [[ $numero1$numero2 =~ $es_numero ]] ; then
+   		echo "Los parámetros deben ser números enteros" 
+		echo "`date`: Ocurrió un error al ejecutar el script $0, no se le introdujo un valor correcto para realizar el cálculo" >> errores8.log
+   		exit 1
+	  else
+   		resultado=$(($numero1 * $numero2))
+   		echo "El resultado de la multiplicación es $resultado"
+	  fi
 
 }
 
-opcion4(){ echo "Introduce dos números para realizar la función seleccionada"
+opcion4(){ 
+	  echo "Introduce dos números para realizar la función seleccionada"
 	  read numero1
 	  read numero2
-   resultado=$(echo "scale=2; $numero1/$numero2" | bc) #La división muestra dos decimales
-   echo "El resultado de la división  es $resultado"
+
+	  if ! [[ $numero1$numero2 =~ $es_numero ]] ; then
+   		echo "Los parámetros deben ser números enteros" 
+		echo "`date`: Ocurrió un error al ejecutar el script $0, no se le introdujo un valor correcto para realizar el cálculo" >> errores8.log
+   		exit 1
+	  else
+   		resultado=$(echo "scale=2; $numero1/$numero2" | bc) #La división muestra dos decimales
+   		echo "El resultado de la división  es $resultado"
+	  fi
 
 }
 
-opcion5() { echo "Saliendo"
-		exit
+opcion5() { 
+	  echo "Saliendo"
+	  exit 0
 }
 
 #Con echo se muestran las distintas opciones y luego se lee el valor recibido con read. Según el número que sea (del 1 al 5), se ejecuta el case con las funciones
@@ -81,8 +116,8 @@ esac
 while [[ $opcion -ne 1 && $opcion -ne 2 && $opcion -ne 3 && $opcion -ne 4 && $opcion -ne 5 ]]
 do
 echo "ERROR. Debe introducir un valor comprendido entre el 1 y el 4"
-sleep 2
-echo "`date`: Ocurrió un error al ejecutar el script $0, no se le introdujo un valor correcto" >> errores8.log
+sleep 1
+echo "`date`: Ocurrió un error al ejecutar el script $0, el valor introducido no formaba parte de las opciones" >> errores8.log
 echo "1. Sumar"
 echo "2. Restar"
 echo "3. Multiplicar"
